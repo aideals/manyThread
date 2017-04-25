@@ -8,9 +8,13 @@
 
 #import "AppTableViewController.h"
 #import "AppData.h"
+#import "DownLoadOperation.h"
 
-@interface AppTableViewController ()
+@interface AppTableViewController () <DownLoadOperationDelegate>
 @property (nonatomic,strong) NSArray *appAr;
+@property (nonatomic,strong) NSOperationQueue *queue;
+@property (nonatomic,strong) NSMutableDictionary *operations;
+@property (nonatomic,strong) NSMutableDictionary *images;
 @end
 
 @implementation AppTableViewController
@@ -38,6 +42,30 @@
     return _appAr;
 }
 
+- (NSOperationQueue *)queue
+{
+    if (_queue == nil) {
+        _queue = [[NSOperationQueue alloc] init];
+        _queue.maxConcurrentOperationCount = 3;
+    }
+    return _queue;
+}
+
+- (NSMutableDictionary *)operations
+{
+    if (_operations == nil) {
+        _operations = [NSMutableDictionary dictionary];
+    }
+    return _operations;
+}
+
+- (NSMutableDictionary *)images
+{
+    if (_images == nil) {
+        _images = [NSMutableDictionary dictionary];
+    }
+    return _images;
+}
 
 #pragma mark - Table view data source
 
@@ -55,8 +83,8 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    static NSString *reuseID = @"cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseID forIndexPath:indexPath];
+    static NSString *reuseID = @"ID";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseID];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseID];
     }
@@ -65,15 +93,60 @@
     cell.textLabel.text = app.name;
     cell.detailTextLabel.text = app.downLoad;
     
-    NSLog(@"当前线程:%@",[NSThread currentThread]);
-    NSURL *url = [NSURL URLWithString:app.icon];
-    NSData *imageData = [NSData dataWithContentsOfURL:url];
-    UIImage *image = [UIImage imageWithData:imageData];
-    cell.imageView.image = image;
+   // NSLog(@"当前线程:%@",[NSThread currentThread]);
+   // NSURL *url = [NSURL URLWithString:app.icon];
+   // NSData *imageData = [NSData dataWithContentsOfURL:url];
+   // UIImage *image = [UIImage imageWithData:imageData];
+   // cell.imageView.image = image;
     
-    NSLog(@"完成显示");
+   // DownLoadOperation *operation = [[DownLoadOperation alloc] init];
+   // operation.url = app.icon;
+   // operation.indexPath = indexPath;
+   // operation.delegate = self;
+    
+    UIImage *image = self.images[app.icon];
+    
+    if (image) {
+        cell.imageView.image = image;
+    } else {
+        cell.imageView.image = [UIImage imageNamed:@"007"];
+        DownLoadOperation *operation = self.operations[app.icon];
+        if (operation) {
+            
+        }else {
+            operation = [[DownLoadOperation alloc] init];
+            operation.url = app.icon;
+            operation.indexPath = indexPath;
+            operation.delegate = self;
+            [self.queue addOperation:operation];
+            //self.operations[app.icon] = operation;
+        }
+    }
+   
+    
+    
+    //NSLog(@"完成显示");
     return cell;
 }
+
+- (void)downLoadOperation:(DownLoadOperation *)operation didFinishedDownload:(UIImage *)image
+{
+   // UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:operation.indexPath];
+   // cell.imageView.image = image;
+    
+   // [self.tableView reloadData];
+    
+   // NSLog(@"---%@---",[NSThread currentThread]);
+
+    [self.operations removeObjectForKey:operation.url];
+    self.images[operation.url] = image;
+
+    [self.tableView reloadRowsAtIndexPaths:@[operation.indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    NSLog(@"--%ld--%@--",(long)operation.indexPath.row,[NSThread currentThread]);
+}
+
+
+
 
 
 /*

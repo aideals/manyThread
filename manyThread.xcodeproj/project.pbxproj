@@ -16,6 +16,7 @@
 		1D02A7901EAD75F100775BDC /* AppTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D02A78F1EAD75F100775BDC /* AppTableViewController.m */; };
 		1D02A7931EAD763900775BDC /* AppData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D02A7921EAD763900775BDC /* AppData.m */; };
 		1D02A7951EAD78CC00775BDC /* App.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1D02A7941EAD78CC00775BDC /* App.plist */; };
+		1D02A7981EADCE2900775BDC /* DownLoadOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D02A7971EADCE2900775BDC /* DownLoadOperation.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +55,8 @@
 		1D02A7911EAD763900775BDC /* AppData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppData.h; sourceTree = "<group>"; };
 		1D02A7921EAD763900775BDC /* AppData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppData.m; sourceTree = "<group>"; };
 		1D02A7941EAD78CC00775BDC /* App.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = App.plist; sourceTree = "<group>"; };
+		1D02A7961EADCE2900775BDC /* DownLoadOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownLoadOperation.h; sourceTree = "<group>"; };
+		1D02A7971EADCE2900775BDC /* DownLoadOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownLoadOperation.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +111,8 @@
 				1D02A7441EAAD09700775BDC /* AppDelegate.m */,
 				1D02A78E1EAD75F100775BDC /* AppTableViewController.h */,
 				1D02A78F1EAD75F100775BDC /* AppTableViewController.m */,
+				1D02A7961EADCE2900775BDC /* DownLoadOperation.h */,
+				1D02A7971EADCE2900775BDC /* DownLoadOperation.m */,
 				1D02A7911EAD763900775BDC /* AppData.h */,
 				1D02A7921EAD763900775BDC /* AppData.m */,
 				1D02A7941EAD78CC00775BDC /* App.plist */,
@@ -282,6 +287,7 @@
 				1D02A7901EAD75F100775BDC /* AppTableViewController.m in Sources */,
 				1D02A7421EAAD09700775BDC /* main.m in Sources */,
 				1D02A7931EAD763900775BDC /* AppData.m in Sources */,
+				1D02A7981EADCE2900775BDC /* DownLoadOperation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

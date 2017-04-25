@@ -14,5 +14,6 @@
 @property (nonatomic,copy) NSString *downLoad;
 
 + (instancetype)appModelWithDict:(NSDictionary *)dict;
+
 - (instancetype)initWithDict:(NSDictionary *)dict;
 @end
